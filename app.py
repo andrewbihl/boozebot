@@ -40,7 +40,7 @@ def webhook():
                     recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
                     message_text = messaging_event["message"]["text"]  # the message's text
                     if "hate" in message_text:
-                        send_delayed_message(sender_id, "You're ugly.", 1000.0)
+                        send_delayed_message(sender_id, "You're ugly.", 5.0)
                         continue
                     else:
                         send_message(sender_id, "got it, thanks!")
@@ -60,7 +60,7 @@ def webhook():
 def send_delayed_message(recipient_id, message_text, time_in_seconds):
     BackgroundScheduler.clear()
     scheduler = BackgroundScheduler()
-    scheduler.add_job(send_message(recipient_id, message_text),'date', seconds=7)
+    scheduler.add_job(send_message(recipient_id, message_text),'date', seconds=time_in_seconds)
     scheduler.start()
 
 def send_message(recipient_id, message_text):
