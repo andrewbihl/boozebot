@@ -1,6 +1,7 @@
 import os
 import sys
 import json
+import threading
 
 import requests
 from flask import Flask, request
@@ -39,7 +40,7 @@ def webhook():
                     recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
                     message_text = messaging_event["message"]["text"]  # the message's text
                     if "penis" or "hate" in message_text:
-                        send_message(sender_id, "fuck off!")
+                        send_delayed_message(recipient_id, "You're ugly.", 10.0)
                         continue
                     send_message(sender_id, "got it, thanks!")
 
@@ -54,6 +55,9 @@ def webhook():
 
     return "ok", 200
 
+
+def send_delayed_message(recipient_id, message_text, time_in_seconds):
+    threading.Timer(time_in_seconds, send_message(recipient_id, message_text)).start()
 
 def send_message(recipient_id, message_text):
 
