@@ -1,7 +1,7 @@
 import os
 import sys
 import json
-import threading
+from apscheduler.schedulers.background import BackgroundScheduler
 
 import requests
 from flask import Flask, request
@@ -57,7 +57,9 @@ def webhook():
 
 
 def send_delayed_message(recipient_id, message_text, time_in_seconds):
-    threading.Timer(time_in_seconds, send_message(recipient_id, message_text)).start()
+    scheduler = BackgroundScheduler()
+    scheduler.add_job(send_message(recipient_id, message_text), 'interval', seconds=7)
+    scheduler.start()
 
 def send_message(recipient_id, message_text):
 
