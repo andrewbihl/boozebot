@@ -2,6 +2,7 @@ import os
 import sys
 import json
 from apscheduler.schedulers.background import BackgroundScheduler
+import datetime
 
 import requests
 from flask import Flask, request
@@ -44,6 +45,7 @@ def webhook():
                         continue
                     else:
                         send_message(sender_id, "got it, thanks!")
+                        continue
 
                 if messaging_event.get("delivery"):  # delivery confirmation
                     pass
@@ -59,7 +61,8 @@ def webhook():
 
 def send_delayed_message(recipient_id, message_text, time_in_seconds):
     scheduler = BackgroundScheduler()
-    scheduler.add_job(send_message(recipient_id, message_text),'date', seconds=time_in_seconds)
+    currentDate = datetime.datetime.now()
+    scheduler.add_job(send_message(recipient_id, message_text),'date', run_date=datetime(currentDate.year, currentDate.month, currentDate.day, currentDate.second+time_in_seconds, currentDate.microsecond))
     scheduler.start()
 
 def send_message(recipient_id, message_text):
