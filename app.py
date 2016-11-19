@@ -60,6 +60,7 @@ def webhook():
 
 
 def send_delayed_message(recipient_id, message_text, time_in_seconds):
+    print("Removing jobs")
     scheduler = BackgroundScheduler()
     scheduler.remove_all_jobs()
     currentDate = datetime.datetime.now()
