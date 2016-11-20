@@ -57,7 +57,7 @@ def send_delayed_message(recipient_id, message_text, time_in_seconds):
     scheduler = BackgroundScheduler()
     print(scheduler.get_jobs())
     current_date = datetime.datetime.now()
-    print("TIME: "+time_in_seconds)
+    print(time_in_seconds)
     send_time = datetime.datetime(current_date.year, current_date.month, current_date.day, current_date.hour, current_date.minute, current_date.second+time_in_seconds)
     scheduler.add_job(send_message(recipient_id, message_text),'date', run_date=send_time)
     scheduler.start()
