@@ -43,7 +43,7 @@ def webhook():
                     if "hi" in message_text:
                         send_message(sender_id, "hey")
                     else:
-                        send_delayed_message(sender_id, "hey", 10)
+                        send_delayed_message(sender_id, "got it!", 10)
 
                 if messaging_event.get("delivery"):  # delivery confirmation
                     pass
@@ -59,8 +59,8 @@ def webhook():
 
 def send_delayed_message(recipient_id, message_text, time_in_seconds):
     scheduler = BackgroundScheduler()
-    currentDate = datetime.datetime.now()
-    scheduler.add_job(send_message(recipient_id, message_text),'date', run_date=datetime(currentDate.year, currentDate.month, currentDate.day, currentDate.second+time_in_seconds, currentDate.microsecond))
+    current_date = datetime.datetime.now()
+    scheduler.add_job(send_message(recipient_id, message_text),'date', run_date=datetime(current_date.year, currentDate.month, currentDate.day, currentDate.second+time_in_seconds, currentDate.microsecond))
     scheduler.start()
 
 def send_message(recipient_id, message_text):
