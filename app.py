@@ -43,10 +43,7 @@ def webhook():
                     print(message_text is str)
                     message_string = str(message_text)
                     print(message_string)
-                    if "hi" in message_string:
-                        send_delayed_message(sender_id, message_text, 1)
-                    else:
-                        send_message(sender_id, "k")
+                    send_message(sender_id, "k")
                     break
                 if messaging_event.get("delivery"):  # delivery confirmation
                     pass
