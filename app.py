@@ -44,7 +44,7 @@ def webhook():
                         send_message(sender_id, "hey")
                     else:
                         send_delayed_message(sender_id, "got it!", 10)
-
+                        break
                 if messaging_event.get("delivery"):  # delivery confirmation
                     pass
 
