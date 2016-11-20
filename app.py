@@ -40,7 +40,7 @@ def webhook():
                     sender_id = messaging_event["sender"]["id"]        # the facebook ID of the person sending you the message
                     recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
                     message_text = messaging_event["message"]["text"]  # the message's text
-                    send_message(sender_id, "<Generic response>")
+                    send_delayed_message(sender_id, "<Generic response>", 5)
                 if messaging_event.get("delivery"):  # delivery confirmation
                     pass
 
@@ -57,7 +57,7 @@ def send_delayed_message(recipient_id, message_text, time_in_seconds):
     scheduler = BackgroundScheduler()
     print(scheduler.get_jobs())
     current_date = datetime.datetime.now()
-    scheduler.add_job(send_message(recipient_id, message_text),'date', run_date=datetime(current_date.year, current_date.month, current_date.day, current_date.second+time_in_seconds, current_date.microsecond))
+    scheduler.add_job(send_message(recipient_id, message_text),'date', run_date=datetime.datetime(current_date.year, current_date.month, current_date.day, current_date.second+time_in_seconds, current_date.microsecond))
     scheduler.start()
 
 def send_message(recipient_id, message_text):
