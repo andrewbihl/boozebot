@@ -41,7 +41,7 @@ def webhook():
                     recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
                     message_text = messaging_event["message"]["text"]  # the message's text
                     if "hate" in message_text:
-                        send_delayed_message(sender_id, "You're ugly.", 5.0)
+                        send_delayed_message(sender_id, "Sorry to hear that.", 5.0)
                         continue
                     else:
                         send_message(sender_id, "got it, thanks!")
